@@ -12,10 +12,20 @@ on:
   schedule:
     - cron: 30, 14 * * * # Run at 2:30 UTC everyday
   workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy to
+        required: true
+        default: dev
+      conditional_step:
+        description: Run multi-line script?
+        required: true
+        default: false
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
+  hello_world:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,9 +33,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo Hello, world!  Deploying to ${{ github.event.inputs.environment }}
 
       - name: Run a multi-line script
+        if: github.event.inputs.conditional_step
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
