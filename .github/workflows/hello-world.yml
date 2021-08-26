@@ -51,3 +51,14 @@ jobs:
           pwd
           printenv | sort
           ls -R
+
+  second_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Last step diagnostics
+        if: always()
+        run: |
+          pwd
+          printenv | sort
+          ls -R
