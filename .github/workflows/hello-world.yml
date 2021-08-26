@@ -27,7 +27,8 @@ on:
 jobs:
   hello_world:
     runs-on: ubuntu-latest
-
+    outputs:
+      sample_output: ${{ steps.multiline.outputs.test_output }}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -37,12 +38,15 @@ jobs:
         run: echo Hello, world!  Triggered by ${{ github.event_name }}
 
       - name: Run a multi-line script
+        id: multiline
         run: |
-          if ["" == "${{ github.event.inputs.environment }}"]
+          if [[ "" == "${{ github.event.inputs.environment }}" ]]
           then
               echo "No environment specified"
+              echo "::set-output name=test_output::NA"
           else
               echo "Deploying to ${{ github.event.inputs.environment }}"
+              echo "::set-output name=test_output::deployment-${{ github.event.inputs.environment }}"
           fi
 
       - name: Last step diagnostics
@@ -53,12 +57,14 @@ jobs:
           ls -R
 
   second_job:
+    needs: hello_world
     runs-on: ubuntu-latest
 
     steps:
       - name: Last step diagnostics
         if: always()
         run: |
+          echo "hello_world output: sample_output=${{ needs.hello_world.outputs.sample_output }}"
           pwd
           printenv | sort
           ls -R
