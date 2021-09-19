@@ -49,6 +49,10 @@ jobs:
               echo "::set-output name=test_output::deployment-${{ github.event.inputs.environment }}"
           fi
 
+      - uses: ./.github/actions/hello-action
+        with:
+          who-to-greet: SampleUser
+
       - name: Last step diagnostics
         if: always()
         run: |
