@@ -55,8 +55,8 @@ jobs:
         if: always()
         id: summary
         run: |
-          echo "test-1: ${{ steps.test-1.result }}"
-          echo "test-2: ${{ steps.test-2.result }}"
+          echo "test-1: ${{ steps.test-1.outputs.result }}"
+          echo "test-2: ${{ steps.test-2.outputs.result }}"
 
       - name: Run a multi-line script
         id: multiline
