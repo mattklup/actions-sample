@@ -44,7 +44,7 @@ jobs:
       - name: Run Test 1
         if: always()
         id: test-1
-        run: echo echo "::set-output name=result::passed\n"        
+        run: echo "::set-output name=result::passed\n"        
 
       - name: Run Test 2
         if: always()
