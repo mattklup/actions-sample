@@ -21,7 +21,10 @@ on:
         description: Run one-line script?
         required: true
         default: false
-
+      test_2_result:
+        description: Test result
+        required: true
+        default: passed
 env:
   WORKFLOW_SCOPED_VARIABLE: SampleName-${GITHUB_RUN_NUMBER}
   MAIN_PUSH: ${{github.ref == 'refs/heads/main' && github.event_name == 'push'}}
@@ -49,7 +52,7 @@ jobs:
       - name: Run Test 2
         if: always()
         id: test-2
-        run: echo "::set-output name=result::failed\n"
+        run: echo "::set-output name=result::${{ github.event.inputs.test_2_result }}\n"
 
       - name: Test summary
         if: always()
