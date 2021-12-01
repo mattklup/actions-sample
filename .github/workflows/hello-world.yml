@@ -41,6 +41,23 @@ jobs:
         if: github.event.inputs.conditional_step # checking for non-empty, 'false' still runs
         run: echo Hello, world!  Triggered by ${{ github.event_name }}
 
+      - name: Run Test 1
+        if: always()
+        id: test-1
+        run: echo echo "::set-output name=result::passed\n"        
+
+      - name: Run Test 2
+        if: always()
+        id: test-2
+        run: echo "::set-output name=result::failed\n"
+
+      - name: Test summary
+        if: always()
+        id: summary
+        run: |
+          echo "test-1: ${{ steps.test-1.result }}"
+          echo "test-2: ${{ steps.test-2.result }}"
+
       - name: Run a multi-line script
         id: multiline
         run: |
