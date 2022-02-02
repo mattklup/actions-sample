@@ -44,6 +44,10 @@ jobs:
         if: github.event.inputs.conditional_step # checking for non-empty, 'false' still runs
         run: echo Hello, world!  Triggered by ${{ github.event_name }}
 
+      - name: Use a secret
+        if: github.event.inputs.conditional_step # checking for non-empty, 'false' still runs
+        run: echo $SAMPLE_SECRET  Triggered by ${{ github.event_name }}
+
       - name: Run Test 1
         if: always()
         id: test-1
