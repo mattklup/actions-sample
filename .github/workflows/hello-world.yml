@@ -29,6 +29,7 @@ env:
   WORKFLOW_SCOPED_VARIABLE: SampleName-${GITHUB_RUN_NUMBER}
   MAIN_PUSH: ${{github.ref == 'refs/heads/main' && github.event_name == 'push'}}
   SECRETS_CONFIGURED: ${{secrets.CONTAINER_REGISTRY_URL != null}}
+  SAMPLE_SECRET: ${{secrets.SAMPLE_SECRET}}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
