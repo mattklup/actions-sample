@@ -49,7 +49,13 @@ jobs:
         run: |
           echo Test Secret
           echo "Secret: ${{secrets.SAMPLE_SECRET}}"
-          echo "Secret: $SAMPLE_SECRET"
+          echo "Secret: $SAMPLE_SECRET" > out-secret.txt
+
+      - name: Archive log file
+        uses: actions/upload-artifact@v2
+        with:
+          name: secret-file
+          path: out-secret.txt
 
       - name: Run Test 1
         if: always()
